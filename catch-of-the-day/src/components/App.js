@@ -4,14 +4,17 @@ import Inventory from './Inventory'
 import Order from './Order'
 import sampleFishes from '../sample-fishes'
 import Fish from './Fish'
+import base from '../base'
 
 class App extends React.Component {
   state = {
     fishes: {},
     order: {}
   }
+  componentDidMount() {
+    // this.ref = base.syncState()
+  }
   addFish = fish => {
-    console.log('adding fish!')
     const fishes = { ...this.state.fishes }
     fishes[`fish${Date.now()}`] = fish
     this.setState({ fishes })
@@ -39,7 +42,6 @@ class App extends React.Component {
               />
             ))}
           </ul>
-          {/* <Fish /> */}
         </div>
         <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory
