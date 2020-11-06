@@ -4,6 +4,8 @@ import { formatPrice } from '../helpers'
 class Order extends React.Component {
   renderOrder = key => {
     const fish = this.props.fishes[key]
+    if (!fish) return null
+
     const count = this.props.order[key]
     const isAvailable = fish && fish.status === 'available'
     if (!isAvailable) {
@@ -24,10 +26,12 @@ class Order extends React.Component {
     const orderIds = Object.keys(this.props.order)
     const total = orderIds.reduce((prevTotal, key) => {
       const fish = this.props.fishes[key]
-      const count = this.props.order[key]
-      const isAvailable = fish && fish.status === 'available'
-      if (isAvailable) {
-        return prevTotal + count * fish.price
+      if (fish) {
+        const count = this.props.order[key]
+        const isAvailable = fish && fish.status === 'available'
+        if (isAvailable) {
+          return prevTotal + count * fish.price
+        }
       }
       return prevTotal
     }, 0)
